@@ -14,6 +14,11 @@ class setenv {
     require => Exec['apt-get update']
   }
 
+  exec { 'apt-get update': 
+    command     => '/usr/bin/apt-get update',
+    refreshonly => true
+  }
+  
   exec { '/usr/sbin/update-alternatives --set editor /usr/bin/vim.basic':
     unless  => '/usr/bin/test /etc/alternatives/editor -ef /usr/bin/vim.basic',
     require => Package['vim']
