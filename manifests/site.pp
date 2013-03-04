@@ -24,6 +24,7 @@ node reporting inherits default {
   $reporting_server = 'reporting.ackerson.de'
   $reporting_app_path = '/home/dan/dev/ConnectReporting'
   include nginx
+  include reporting-app
   
   #TODO
   # include git clone ConnectReporting

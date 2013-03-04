@@ -1,4 +1,4 @@
-# git clone the ConnectReporting app and 
+# git clone the ConnectReporting app and
 # setup the necessary cronjobs/scripts for daily data import
 class reporting-app {
   file { '/root/dev':
