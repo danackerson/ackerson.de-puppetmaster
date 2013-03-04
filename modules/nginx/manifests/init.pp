@@ -13,7 +13,7 @@ class nginx {
 
   file { 'nginx.conf':
     ensure  => file,
-    path    => '/etc/nginx/conf.d/nginx.conf',
+    path    => '/etc/nginx/nginx.conf',
     require => [Package['nginx-light'], File['htpasswd']],
     notify  => Service['nginx'],
     content => template('nginx/nginx.conf.erb'),
