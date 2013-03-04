@@ -8,7 +8,7 @@ class nginx {
   service { 'nginx':
     ensure  => running,
     enable  => true,
-    require => [Package['ssl-cert'], File['nginx.conf']],
+    require => [File['nginx.conf'], Exec['/usr/bin/make-ssl-cert generate-default-snakeoil --force-overwrite']],
   }
 
   file { 'nginx.conf':

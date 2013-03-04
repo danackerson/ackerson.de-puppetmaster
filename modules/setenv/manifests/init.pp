@@ -15,6 +15,11 @@ class setenv {
     require => Package['vim']
   }
 
+  exec { '/usr/bin/make-ssl-cert generate-default-snakeoil --force-overwrite':
+    unless  => '/usr/bin/test -f /etc/ssl/private/ssl-cert-snakeoil.key',
+    require => Package['ssl-cert']
+  }
+
   file { '/etc/environment':
     ensure  => present,
     content => template('setenv/etc/environment.erb'),
