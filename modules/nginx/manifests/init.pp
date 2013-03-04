@@ -23,7 +23,7 @@ class nginx {
     ensure  => file,
     owner   => root,
     group   => root,
-    mode    => '0600',
+    mode    => '0644',
     path    => '/etc/nginx/passwd/.htpasswd',
     require => [Package['nginx-light'], File['passwd']],
     source  => 'puppet:///modules/nginx/htpasswd'
