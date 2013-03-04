@@ -1,7 +1,10 @@
-worker_processes  1;
+user www-data;
+worker_processes 1;
+pid /var/run/nginx.pid;
 
 events {
-    worker_connections  1024;
+  worker_connections 768;
+  # multi_accept on;
 }
 
 http {
@@ -9,18 +12,20 @@ http {
       server unix:/<%= reporting_app_path %>/puma.sock fail_timeout=0;
     }
 
-    include       mime.types;
+    include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
 
-    sendfile        on;
+    sendfile      on;
+    tcp_nopush    on;
+    tcp_nodelay   on;
+    gzip          on;
     keepalive_timeout  5 5;
-    gzip  on;
 
-    server {
-        listen       80;
-        server_name  <%= reporting_server %>;
-        rewrite      ^ https://$server_name$request_uri? permanent;
-    }
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
 
     ssl_certificate      /etc/ssl/certs/ssl-cert-snakeoil.pem;
     ssl_certificate_key  /etc/ssl/private/ssl-cert-snakeoil.key;
@@ -31,6 +36,13 @@ http {
     ssl_session_cache shared:SSL:10m;
     ssl_session_timeout 5m;
 
+    ## TODO: move these out to sites-enabled!
+    # HTTP base
+    server {
+        listen       80;
+        server_name  <%= reporting_server %>;
+        rewrite      ^ https://$server_name$request_uri? permanent;
+    }
     # HTTPS server
     server {
         listen       443 ssl;
