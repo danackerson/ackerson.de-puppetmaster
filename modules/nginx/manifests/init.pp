@@ -1,7 +1,7 @@
 # Install and configure an nginx server
 # including an htpasswd file for basic authentication
 class nginx {
-  package { 'nginx-lite':
+  package { 'nginx-light':
     ensure  => latest
   }
 
@@ -14,7 +14,7 @@ class nginx {
   file { 'nginx.conf':
     ensure  => file,
     path    => '/etc/nginx/conf/nginx.conf',
-    require => [Package['nginx-lite'], File['htpasswd']],
+    require => [Package['nginx-light'], File['htpasswd']],
     notify  => Service['nginx'],
     content => template('nginx/nginx.conf.erb'),
   }
@@ -25,13 +25,13 @@ class nginx {
     group   => root,
     mode    => '0600',
     path    => '/etc/nginx/passwd/.htpasswd',
-    require => [Package['nginx-lite'], File['passwd']],
+    require => [Package['nginx-light'], File['passwd']],
     source  => 'puppet:///modules/nginx/htpasswd'
   }
 
   file { 'passwd':
     ensure  => directory,
     path    => '/etc/nginx/passwd',
-    require => Package['nginx-lite']
+    require => Package['nginx-light']
   }
 }
