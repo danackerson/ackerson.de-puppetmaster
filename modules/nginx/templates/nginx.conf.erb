@@ -1,0 +1,55 @@
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    upstream puma {
+      server unix:/<%= reporting_app_path %>/puma.sock fail_timeout=0;
+    }
+
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    keepalive_timeout  5 5;
+    gzip  on;
+
+    server {
+        listen       80;
+        server_name  <%= reporting_server %>;
+        rewrite      ^ https://$server_name$request_uri? permanent;
+    }
+
+    ssl_certificate      /etc/ssl/certs/ssl-cert-snakeoil.pem;
+    ssl_certificate_key  /etc/ssl/private/ssl-cert-snakeoil.key;
+
+    ssl_protocols  SSLv2 SSLv3 TLSv1;
+    ssl_ciphers !kEDH:HIGH:!ADH:!MD5;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 5m;
+
+    # HTTPS server
+    server {
+        listen       443 ssl;
+        server_name  <%= reporting_server %>;
+
+        satisfy any;
+        allow 127.0.0.1;
+        allow 87.174.138.143;
+        deny all;
+        auth_basic "Nemetschek Allplan Reporting";
+        auth_basic_user_file /etc/nginx/passwd/.htpasswd;
+
+        root <%= reporting_app_path %>/public;
+        location / {
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $http_host;
+
+            proxy_pass http://puma;
+        }
+    }
+
+}
