@@ -8,7 +8,7 @@ class nginx {
   service { 'nginx':
     ensure  => running,
     enable  => true,
-    require => File['nginx.conf'],
+    require => [Package['ssl-cert'], File['nginx.conf']],
   }
 
   file { 'nginx.conf':
