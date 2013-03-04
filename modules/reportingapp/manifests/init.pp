@@ -1,6 +1,6 @@
 # git clone the ConnectReporting app and
 # setup the necessary cronjobs/scripts for daily data import
-class reporting-app {
+class reportingapp {
   file { '/root/dev':
     ensure => directory
   }
@@ -9,6 +9,6 @@ class reporting-app {
     cwd     => '/root/dev',
     command => '/usr/bin/git clone git@github.com:NemetschekAllplan/ConnectReporting.git connectreporting',
     unless  => '/usr/bin/test -d /root/dev/connectreporting/.git',
-    require => File['/root/dev'],
+    require => File['/root/dev', '/root/.ssh/known_hosts'],
   }
 }

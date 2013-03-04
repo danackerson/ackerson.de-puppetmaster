@@ -36,4 +36,19 @@ class setenv {
     content => template('setenv/etc/environment.erb'),
   }
 
+  file { '/root/.ssh':
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0600'
+  }
+  # add github as known host
+  file { '/root/.ssh/known_hosts' :
+    ensure  => present,
+    source  => 'puppet:///modules/setenv/known_hosts',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => File['/root/.ssh'],
+  }
 }
