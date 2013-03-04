@@ -3,6 +3,7 @@
 class nginx {
   exec { '/usr/bin/add-apt-repository -y ppa:nginx/stable':
     notify => Exec['apt-update'],
+    unless => '/usr/bin/test -f /etc/apt/sources.list.d/nginx-stable-quantal.list'
   }
 
   package { 'nginx-light':
