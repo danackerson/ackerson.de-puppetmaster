@@ -1,14 +1,21 @@
 # Install and configure an nginx server
 # including an htpasswd file for basic authentication
 class nginx {
+  file { '/etc/apt/sources.list.d/nginx.sources.list':
+    ensure => file,
+    source => 'puppet:///modules/nginx/nginx.sources.list',
+    notify => Exec['apt-update'],
+  }
+
   package { 'nginx-light':
-    ensure  => latest
+    ensure  => latest,
+    require => File['/etc/apt/sources.list.d/nginx.sources.list'],
   }
 
   service { 'nginx':
     ensure  => running,
     enable  => true,
-    require => [File['nginx.conf'], Exec['/usr/bin/make-ssl-cert generate-default-snakeoil --force-overwrite']],
+    require => [File['nginx.conf'], Exec['make-ssl-cert']],
   }
 
   file { 'nginx.conf':

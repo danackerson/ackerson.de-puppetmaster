@@ -1,8 +1,8 @@
 $ntp_server =
   '0.de.pool.ntp.org
-  1.de.pool.ntp.org
-  2.de.pool.ntp.org
-  3.de.pool.ntp.org'
+   1.de.pool.ntp.org
+   2.de.pool.ntp.org
+   3.de.pool.ntp.org'
 
 $apache_php_script_memory = 'xyzM'
 $apc_php_memory = '123' #MB
@@ -24,9 +24,8 @@ node reporting inherits default {
   $reporting_server = 'reporting.ackerson.de'
   $reporting_app_path = '/home/dan/dev/ConnectReporting'
   include nginx
-
+  
   #TODO
-  # include rbenv
   # include git clone ConnectReporting
   # include puma (and other gems?)
   # include mariaDB
