@@ -17,6 +17,14 @@ class nginx {
     require => [File['nginx.conf'], Exec['make-ssl-cert']],
   }
 
+  file { 'default-site':
+    ensure  => file,
+    path    => '/etc/nginx/sites-available/default',
+    require => Package['nginx-light'],
+    notify  => Service['nginx'],
+    content => template('nginx/default-site.erb'),
+  }
+
   file { 'nginx.conf':
     ensure  => file,
     path    => '/etc/nginx/nginx.conf',
