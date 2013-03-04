@@ -20,7 +20,7 @@ node default {
   include ntp
 }
 
-node reporting {
+node reporting inherits default {
   $reporting_server = 'reporting.ackerson.de'
   $reporting_app_path = '/home/dan/dev/ConnectReporting'
   include nginx
