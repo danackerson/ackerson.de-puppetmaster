@@ -3,7 +3,7 @@ class mariadb {
 
   file { '/etc/apt/sources.list.d/mariadb.list':
     ensure  => file,
-    content => 'puppet:///files/mariadb.list',
+    source => 'puppet:///modules/mariadb/mariadb.list',
     notify  => Exec['apt-key mariadb'],
   }
 
