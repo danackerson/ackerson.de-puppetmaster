@@ -24,7 +24,7 @@ node default {
 node reporting inherits default {
   $reporting_server = 'reporting.ackerson.de'
   $reporting_app_path = '/root/dev/reporting'
-  include mariadb-server
+  include mariadb
   include nginx
   include reportingapp
 
