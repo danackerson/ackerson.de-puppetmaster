@@ -32,7 +32,7 @@ class reportingapp {
 
   exec { 'bundle install reportingapp':
     cwd     => $::reporting_app_path,
-    command => '/usr/lib/ruby/1.9.1/rubygems/bundle install --binstubs',
+    command => '/usr/local/bin/bundle install --binstubs',
     unless  => "/usr/bin/test -f ${::reporting_app_path}/bin/nokogiri",
     require =>[Exec['git clone reporting'],Ruby::Gem['bundle']],
   }
