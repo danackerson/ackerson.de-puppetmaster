@@ -34,6 +34,6 @@ class reportingapp {
     cwd     => $::reporting_app_path,
     command => '/usr/local/bin/bundle install --binstubs',
     unless  => "/usr/bin/test -f ${::reporting_app_path}/bin/slimrb",
-    require =>[ Exec['git clone reporting'], Ruby::Gem['bundle'] ],
+    require =>[ Exec['git clone reporting'], Ruby::Gem['bundle'], Package['mariadb-server'] ],
   }
 }

@@ -2,13 +2,14 @@
 # setup vi as default editor, etc.
 class setenv {
   package { 'sudo':     ensure => installed }
-  package { 'rcconf':     ensure => installed }
+  package { 'rcconf':   ensure => installed }
   package { 'htop':     ensure => installed }
   package { 'unzip':    ensure => installed }
   package { 'vim' :     ensure => installed }
   package { 'git-core': ensure => installed }
   package { 'ssl-cert': ensure => installed }
   package { 'fail2ban': ensure => installed }
+  package { 'software-properties-common': ensure => installed }
 
   package { 'build-essential':
     ensure  => latest,

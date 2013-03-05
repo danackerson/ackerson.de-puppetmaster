@@ -1,0 +1,4 @@
+# MariaDB 5.5 repository list - created 2013-03-05 10:45 UTC
+# http://mariadb.org/mariadb/repositories/
+deb http://mirror3.layerjet.com/mariadb/repo/5.5/ubuntu quantal main
+deb-src http://mirror3.layerjet.com/mariadb/repo/5.5/ubuntu quantal main
