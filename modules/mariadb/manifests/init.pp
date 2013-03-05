@@ -18,7 +18,7 @@ class mariadb {
     require => [ File['/etc/apt/sources.list.d/mariadb.list'], Exec['apt-key mariadb'], Exec['apt-update'] ]
   }
 
-  package { 'libmysqlclient-dev':
+  package { 'mysql-client':
     ensure  => present,
     require => Package['mariadb-server'],
   }
