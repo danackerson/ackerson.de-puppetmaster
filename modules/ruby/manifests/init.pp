@@ -2,7 +2,7 @@
 class ruby {
   package { ['ruby1.9.1-full', 'rubygems', 'libxslt1-dev', 'libxml2-dev']: ensure => installed }
 
-  gem { 'bundle':
+  ruby::gem { 'bundle':
     package => 'bundle'
   }
 }
