@@ -1,14 +1,29 @@
-# git clone the ConnectReporting app and
+# git clone the reporting,connect & exchange apps and
 # setup the necessary cronjobs/scripts for daily data import
 class reportingapp {
   file { '/root/dev':
     ensure => directory
   }
 
-  exec { 'git clone connectreporting':
+  exec { 'git clone reporting':
     cwd     => '/root/dev',
-    command => '/usr/bin/git clone git@github.com:NemetschekAllplan/ConnectReporting.git connectreporting',
-    unless  => '/usr/bin/test -d /root/dev/connectreporting/.git',
+    command => '/usr/bin/git clone git@github.com:NemetschekAllplan/ConnectReporting.git reporting',
+    unless  => '/usr/bin/test -d /root/dev/reporting/.git',
     require => File['/root/dev', '/root/.ssh/known_hosts'],
   }
+
+  exec { 'git clone exchange':
+    cwd     => '/root/dev',
+    command => '/usr/bin/git clone git@github.com:NemetschekAllplan/Exchange.git exchange',
+    unless  => '/usr/bin/test -d /root/dev/exchange/.git',
+    require => File['/root/dev', '/root/.ssh/known_hosts'],
+  }
+
+  exec { 'git clone connect':
+    cwd     => '/root/dev',
+    command => '/usr/bin/git clone git@github.com:NemetschekAllplan/Connect.git connect',
+    unless  => '/usr/bin/test -d /root/dev/connect/.git',
+    require => File['/root/dev', '/root/.ssh/known_hosts'],
+  }
+
 }

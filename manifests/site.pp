@@ -27,7 +27,6 @@ node reporting inherits default {
   include reportingapp
 
   #TODO
-  # include git clone ConnectReporting
   # include puma (and other gems?)
   # include mariaDB
   # include 'aws' user?
