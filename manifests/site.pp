@@ -18,11 +18,12 @@ $report_mysql_pass = 'secret'
 node default {
   include setenv
   include ntp
+  include ruby
 }
 
 node reporting inherits default {
   $reporting_server = 'reporting.ackerson.de'
-  $reporting_app_path = '/home/dan/dev/ConnectReporting'
+  $reporting_app_path = '/root/dev/reporting'
   include nginx
   include reportingapp
 
