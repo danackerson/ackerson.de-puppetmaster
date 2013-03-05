@@ -14,17 +14,17 @@ class mariadb {
   }
 
   package { 'mariadb-server':
-    ensure => present,
-    requires => File['/etc/apt/sources.list.d/mariadb.list'],
+    ensure  => present,
+    require => File['/etc/apt/sources.list.d/mariadb.list'],
   }
 
   package { 'libmysqlclient-dev':
-    ensure => present,
-    requires => Package['mariadb-server'],
+    ensure  => present,
+    require => Package['mariadb-server'],
   }
 
   service { 'mysql':
-    ensure => running,
-    requires => Package['mariadb-server'],
+    ensure  => running,
+    require => Package['mariadb-server'],
   }
 }
